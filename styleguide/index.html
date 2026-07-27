@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Surfaced — Product Design System v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Raleway',sans-serif;font-weight:300;background:#f4f3f0;color:#1a1a1a;padding:48px;}
+
+.brand-name{font-family:'Raleway',sans-serif;font-size:26px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0f1828;margin-bottom:4px;}
+.brand-name span{font-weight:300;color:#c8a96e;}
+.brand-sub{font-size:9px;color:#999;letter-spacing:.18em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#888;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #e0ddd8;}
+.divider{height:1px;background:#e0ddd8;margin:36px 0;}
+.row{display:flex;gap:24px;margin-bottom:36px;flex-wrap:wrap;align-items:flex-start;}
+
+/* swatches */
+.swatch{border-radius:4px;overflow:hidden;width:108px;}
+.swatch-block{height:64px;}
+.swatch-name{font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;margin-top:8px;color:#1a1a1a;}
+.swatch-hex{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;margin-top:2px;}
+.swatch-role{font-size:9px;color:#bbb;margin-top:1px;font-family:'Raleway',sans-serif;font-weight:300;}
+
+/* type samples */
+.type-spec{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#aaa;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;}
+.type-sample{border-bottom:1px solid #e8e6e2;padding-bottom:14px;margin-bottom:14px;}
+.type-sample:last-child{border-bottom:none;}
+
+/* component cards */
+.comp-card{background:#fff;border:1px solid #e8e6e2;border-radius:4px;padding:20px 24px;flex:1;min-width:300px;}
+.comp-label{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
+
+/* rule cards */
+.rule-card{flex:1;min-width:180px;background:#fff;border-radius:4px;padding:16px 18px;border:1px solid #e8e6e2;}
+.rule-head-yes{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#27500a;margin-bottom:8px;}
+.rule-head-no{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#791f1f;margin-bottom:8px;}
+.rule-body{font-size:11px;color:#3a3a3a;line-height:1.8;font-family:'Raleway',sans-serif;font-weight:300;}
+
+/* spec block */
+.spec-block{background:#0f1828;border-radius:4px;padding:28px 32px;width:100%;}
+.spec-block pre{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.78);line-height:1.8;white-space:pre-wrap;word-break:break-word;}
+.spec-block .spec-label{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,169,110,0.6);margin-bottom:14px;font-family:'IBM Plex Mono',monospace;}
+
+/* component preview classes matching product */
+.prev-nav{background:rgba(15,24,40,0.92);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);}
+.prev-logo{font-family:'Raleway',sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#efede8;}
+.prev-logo span{font-weight:300;color:#c8a96e;}
+.prev-step{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.18em;color:rgba(239,237,232,0.3);}
+.prev-progress{height:1px;background:#c8a96e;width:42%;}
+.prev-progress-track{height:1px;background:rgba(255,255,255,0.08);}
+
+.prev-step-label{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:#c8a96e;opacity:.8;margin-bottom:6px;}
+.prev-step-heading{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#0d0d0b;line-height:1.15;margin-bottom:4px;}
+.prev-step-heading em{font-style:italic;color:#2a4080;}
+.prev-step-sub{font-family:'Raleway',sans-serif;font-size:11px;font-weight:300;color:#888680;line-height:1.65;}
+
+.prev-card{border:1px solid #dddad3;border-radius:2px;background:#fff;padding:12px 14px;margin-bottom:8px;}
+.prev-card.selected{border-color:#2a4080;border-width:2px;}
+.prev-card-title{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0d0d0b;margin-bottom:3px;}
+.prev-card-desc{font-family:'Raleway',sans-serif;font-size:10px;font-weight:300;color:#888680;line-height:1.45;}
+
+.prev-btn-primary{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:9px 20px;border-radius:2px;background:#1a2744;color:#efede8;display:inline-block;border:none;cursor:pointer;}
+.prev-btn-primary:hover, .prev-btn-primary.hover{background:#c8a96e;color:#0f1828;}
+.prev-btn-secondary{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:9px 20px;border-radius:2px;background:transparent;color:#888680;border:1px solid #dddad3;display:inline-block;cursor:pointer;}
+.prev-btn-nav{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:7px 16px;border-radius:2px;border:1px solid #c8a96e;color:#c8a96e;background:transparent;display:inline-block;}
+.prev-btn-nav:hover, .prev-btn-nav.hover{background:#c8a96e;color:#0f1828;}
+
+.prev-field-label{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:#888680;display:block;margin-bottom:5px;}
+.prev-input{width:100%;border:1px solid #dddad3;border-radius:2px;padding:8px 10px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:300;color:#1e1e1c;background:#fff;}
+.prev-input.focus{border-color:#2a4080;border-width:2px;}
+
+.prev-bias-hdr{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:#c8a96e;opacity:.9;border-bottom:1px solid rgba(200,169,110,0.2);padding-bottom:6px;margin-bottom:8px;}
+.prev-bias-q{border:1px solid #dddad3;border-radius:2px;overflow:hidden;margin-bottom:6px;background:#fff;}
+.prev-bias-text{padding:8px 10px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:300;color:#1e1e1c;line-height:1.5;}
+.prev-bias-opts{display:flex;border-top:1px solid #dddad3;}
+.prev-bias-opt{flex:1;padding:6px;text-align:center;font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888680;border-right:1px solid #dddad3;}
+.prev-bias-opt:last-child{border-right:none;}
+.prev-bias-opt.sel-yes{background:rgba(122,90,0,0.07);color:#7a5a00;}
+
+.prev-upload{border:1px dashed #dddad3;border-radius:2px;padding:24px;text-align:center;background:#fff;}
+.prev-upload.hover{border-color:#2a4080;background:rgba(42,64,128,0.03);}
+.prev-upload-title{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0d0d0b;margin:8px 0 3px;}
+.prev-upload-sub{font-family:'Raleway',sans-serif;font-size:9px;font-weight:300;color:#888680;}
+.prev-upload-icon svg{width:24px;height:24px;stroke:#2a4080;fill:none;stroke-width:1.5;}
+
+.prev-screener-card{border:1px solid #dddad3;border-radius:2px;overflow:hidden;background:#fff;margin-bottom:6px;}
+.prev-screener-hdr{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-bottom:1px solid #dddad3;background:#efede8;}
+.prev-screener-name{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0d0d0b;}
+.prev-badge-pass{font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;background:rgba(30,92,42,0.07);color:#1e5c2a;border:1px solid rgba(30,92,42,0.25);}
+.prev-badge-risk{font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;background:rgba(122,90,0,0.07);color:#7a5a00;border:1px solid rgba(122,90,0,0.25);}
+.prev-badge-fail{font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;background:rgba(139,32,32,0.07);color:#8b2020;border:1px solid rgba(139,32,32,0.2);}
+.prev-screener-body{padding:7px 10px;font-family:'Raleway',sans-serif;font-size:10px;font-weight:300;color:#888680;line-height:1.55;}
+
+.prev-flag-chip{display:inline-flex;align-items:center;gap:4px;font-family:'Raleway',sans-serif;font-size:9px;font-weight:600;color:#7a5a00;background:rgba(122,90,0,0.07);border:1px solid rgba(122,90,0,0.25);border-radius:2px;padding:3px 8px;margin-right:4px;margin-bottom:4px;}
+.prev-flag-chip.high{color:#8b2020;background:rgba(139,32,32,0.07);border-color:rgba(139,32,32,0.2);}
+
+.prev-rs-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#c8a96e;line-height:1;}
+.prev-rs-label{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#888680;margin-top:2px;}
+
+.prev-ind-item{display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:1px solid #dddad3;font-family:'Raleway',sans-serif;font-size:11px;font-weight:300;color:#1e1e1c;}
+.prev-ind-item.sel{background:rgba(42,64,128,0.05);}
+.prev-ind-check{width:12px;height:12px;border:1.5px solid #dddad3;border-radius:1px;flex-shrink:0;}
+.prev-ind-check.sel{background:#2a4080;border-color:#2a4080;}
+
+/* landing previews */
+.prev-hero-bg{background:#0f1828;padding:24px;border-radius:2px;}
+.prev-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:#c8a96e;margin-bottom:8px;}
+.prev-headline{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#efede8;line-height:1.1;margin-bottom:8px;}
+.prev-headline em{font-style:italic;color:#c8a96e;}
+.prev-landing-sub{font-family:'Raleway',sans-serif;font-size:11px;font-weight:300;color:rgba(239,237,232,0.55);line-height:1.65;margin-bottom:12px;}
+.prev-email-bar{display:flex;border:1px solid rgba(200,169,110,0.35);border-radius:2px;overflow:hidden;}
+.prev-email-input{flex:1;background:rgba(255,255,255,0.05);padding:8px 10px;font-family:'Raleway',sans-serif;font-size:10px;font-weight:300;color:rgba(239,237,232,0.5);border:none;}
+.prev-email-btn{font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;background:#c8a96e;color:#0f1828;border:none;}
+
+.prev-feat-card{background:#0f1828;border:1px solid rgba(255,255,255,0.06);padding:16px;border-radius:2px;position:relative;overflow:hidden;}
+.prev-feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c8a96e,#3a54a8);}
+.prev-feat-num{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.18em;color:#c8a96e;opacity:.6;margin-bottom:6px;}
+.prev-feat-title{font-family:'Raleway',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#efede8;margin-bottom:4px;}
+.prev-feat-desc{font-family:'Raleway',sans-serif;font-size:10px;font-weight:300;color:rgba(239,237,232,0.45);line-height:1.55;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div style="margin-bottom:48px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;border-bottom:2px solid #0f1828;padding-bottom:24px;">
+  <div>
+    <div class="brand-name">Surfaced<span> ·</span></div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:300;font-style:italic;color:#888;margin-top:2px;">Your skills, surfaced.</div>
+    <div class="brand-sub" style="margin-top:6px;">Product Design System · v1 · 2026</div>
+  </div>
+  <div style="text-align:right;">
+    <div class="brand-sub">Surfaces: Landing Page · Onboarding Quiz</div>
+    <div class="brand-sub" style="margin-top:4px;">Screener Panel · Job Search Toolkit</div>
+  </div>
+</div>
+
+<!-- ══ COLORS ══ -->
+<div class="section-label">Color Palette</div>
+
+<div style="margin-bottom:8px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#aaa;letter-spacing:.06em;">PRIMARY — Dark Backgrounds (landing page / nav / screener panel)</div>
+<div class="row" style="margin-bottom:20px;">
+  <div class="swatch">
+    <div class="swatch-block" style="background:#0f1828;"></div>
+    <div class="swatch-name">Navy Deep</div>
+    <div class="swatch-hex">#0f1828</div>
+    <div class="swatch-role">Page bg / hero</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#1a2744;"></div>
+    <div class="swatch-name">Navy</div>
+    <div class="swatch-hex">#1a2744</div>
+    <div class="swatch-role">Buttons / header / screener nav</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#2a4080;"></div>
+    <div class="swatch-name">Accent Blue</div>
+    <div class="swatch-hex">#2a4080</div>
+    <div class="swatch-role">Interactive / selected / focus states</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#3a54a8;"></div>
+    <div class="swatch-name">Accent Light</div>
+    <div class="swatch-hex">#3a54a8</div>
+    <div class="swatch-role">Gradient endpoint / hover accents</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#c8a96e;"></div>
+    <div class="swatch-name">Gold</div>
+    <div class="swatch-hex">#c8a96e</div>
+    <div class="swatch-role">Primary CTA / eyebrows / progress / highlights</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#e8d4a8;border:1px solid #dddad3;"></div>
+    <div class="swatch-name">Gold Light</div>
+    <div class="swatch-hex">#e8d4a8</div>
+    <div class="swatch-role">Gold hover / softer accent</div>
+  </div>
+</div>
+
+<div style="margin-bottom:8px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#aaa;letter-spacing:.06em;">SECONDARY — Light Backgrounds (quiz surface / screener panel body)</div>
+<div class="row">
+  <div class="swatch">
+    <div class="swatch-block" style="background:#0d0d0b;"></div>
+    <div class="swatch-name">Black</div>
+    <div class="swatch-hex">#0d0d0b</div>
+    <div class="swatch-role">Step headings / card titles</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#1e1e1c;"></div>
+    <div class="swatch-name">Ink</div>
+    <div class="swatch-hex">#1e1e1c</div>
+    <div class="swatch-role">Body text / question text</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#888680;border:1px solid #e0ddd8;"></div>
+    <div class="swatch-name">Mid Gray</div>
+    <div class="swatch-hex">#888680</div>
+    <div class="swatch-role">Subtext / descriptions / captions</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#dddad3;border:1px solid #e0ddd8;"></div>
+    <div class="swatch-name">Rule</div>
+    <div class="swatch-hex">#dddad3</div>
+    <div class="swatch-role">Borders / dividers / card strokes</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#efede8;border:1px solid #e0ddd8;"></div>
+    <div class="swatch-name">Off White</div>
+    <div class="swatch-hex">#efede8</div>
+    <div class="swatch-role">Quiz surface / card hover / raised panels</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#ffffff;border:1px solid #e0ddd8;"></div>
+    <div class="swatch-name">White</div>
+    <div class="swatch-hex">#ffffff</div>
+    <div class="swatch-role">Card / input / form surface</div>
+  </div>
+</div>
+
+<div style="margin-bottom:8px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#aaa;letter-spacing:.06em;">SEMANTIC — Status / Feedback</div>
+<div class="row">
+  <div class="swatch">
+    <div class="swatch-block" style="background:#1e5c2a;"></div>
+    <div class="swatch-name">Emerald</div>
+    <div class="swatch-hex">#1e5c2a</div>
+    <div class="swatch-role">Pass / success</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#7a5a00;"></div>
+    <div class="swatch-name">Amber</div>
+    <div class="swatch-hex">#7a5a00</div>
+    <div class="swatch-role">At risk / warning / bias flags</div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-block" style="background:#8b2020;"></div>
+    <div class="swatch-name">Red</div>
+    <div class="swatch-hex">#8b2020</div>
+    <div class="swatch-role">Fail / high-priority flags</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ TYPOGRAPHY ══ -->
+<div class="section-label">Typography</div>
+<div class="row" style="gap:40px;">
+
+  <div style="flex:1;min-width:280px;">
+    <div class="type-sample">
+      <div class="type-spec">Display / Step Heading — Cormorant Garamond 300, −0.01em, 2.4rem (quiz) / clamp(2.8–5.2rem) (landing)</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;letter-spacing:-.01em;color:#0d0d0b;line-height:1.1;">Let's build your <em style="font-style:italic;color:#2a4080;">job search tools.</em></div>
+    </div>
+    <div class="type-sample">
+      <div class="type-spec">Landing Subheadline — Cormorant Garamond 300 italic, gold</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;font-style:italic;color:#c8a96e;line-height:1.1;">AI is screening you out before employers know you exist.</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-spec">Section Heading — Cormorant Garamond 300, off-white on dark bg</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#0d0d0b;line-height:1.15;">Everything the job search <em style="font-style:italic;color:#2a4080;">left out on purpose.</em></div>
+    </div>
+  </div>
+
+  <div style="flex:1;min-width:280px;">
+    <div class="type-sample">
+      <div class="type-spec">Brand Logo — Raleway 700 / span 300, 1rem, 0.12em tracking, uppercase</div>
+      <div style="font-family:'Raleway',sans-serif;font-size:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0f1828;">Surfaced<span style="font-weight:300;color:#c8a96e;"> · Job Search Toolkit</span></div>
+    </div>
+    <div class="type-sample">
+      <div class="type-spec">Body / Card Title — Raleway 700, 0.06–0.08em, uppercase, 0.72–0.82rem</div>
+      <div style="font-family:'Raleway',sans-serif;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#0d0d0b;">Screener Health</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-spec">Body / Description — Raleway 300, 0.82–0.9rem, 1.65–1.75 line-height, mid gray</div>
+      <div style="font-family:'Raleway',sans-serif;font-size:13px;font-weight:300;color:#888680;line-height:1.7;">See your pass/fail likelihood across 9 AI screening platforms — Workday, Eightfold, Greenhouse, HireVue, Phenom, and more.</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-spec">Label / Eyebrow — IBM Plex Mono 400, 0.58–0.62rem, 0.18–0.22em tracking, uppercase — gold on dark / mid gray on light</div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#c8a96e;">Step 3 — Resume</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#888680;">Field Label</div>
+      </div>
+    </div>
+    <div class="type-sample">
+      <div class="type-spec">Button — Raleway 700, 0.62–0.18em tracking, uppercase, 0.62–0.75rem</div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <div class="prev-btn-primary">Continue</div>
+        <div class="prev-btn-secondary">Back</div>
+        <div class="prev-btn-nav">Join Waitlist</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ SPACING & RADIUS ══ -->
+<div class="section-label">Spacing Scale &amp; Border Radius</div>
+<div class="row">
+  <div class="comp-card">
+    <div class="comp-label">Spacing Scale</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:4px;height:4px;background:#2a4080;border-radius:1px;flex-shrink:0;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">4px — xs · icon nudges</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:8px;height:8px;background:#2a4080;border-radius:1px;flex-shrink:0;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">8px — sm · tight gaps, chip padding</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:12px;height:12px;background:#2a4080;border-radius:1px;flex-shrink:0;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">12px — md · card padding (tight)</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:16px;height:16px;background:#2a4080;border-radius:1px;flex-shrink:0;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">16px — base · card padding (standard)</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:24px;height:24px;background:#2a4080;border-radius:1px;flex-shrink:0;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">24px — lg · section inner padding, gap</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;background:#2a4080;border-radius:1px;flex-shrink:0;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">32px — xl · section gutters</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:48px;height:48px;background:#2a4080;border-radius:1px;flex-shrink:0;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">48px — 2xl · section top/bottom padding</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:64px;height:16px;background:#2a4080;border-radius:1px;flex-shrink:0;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">96px — section · full section padding (landing)</div>
+      </div>
+    </div>
+  </div>
+  <div class="comp-card">
+    <div class="comp-label">Border Radius</div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="width:48px;height:28px;background:#2a4080;border-radius:0;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">0px — email capture form / progress bar / dividers</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="width:48px;height:28px;background:#2a4080;border-radius:2px;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">2px — buttons / option cards / input fields / badges / chips</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="width:48px;height:28px;background:#2a4080;border-radius:4px;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">4px — filter panel / screener panel table wrap / legend</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="width:48px;height:28px;background:#2a4080;border-radius:6px;"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">6px — landing feature grid / screener preview mockup</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#c0392b;letter-spacing:.04em;">RULE: Never mix radius values within the same component group. Cards in a grid share one value.</div>
+  </div>
+  <div class="comp-card">
+    <div class="comp-label">Border / Divider Rules</div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:300;color:#3a3a3a;line-height:1.7;">
+      <div>Card stroke: <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">1px solid #dddad3</span></div>
+      <div>Selected state: <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">2px solid #2a4080</span></div>
+      <div>Focus state: <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">2px solid #2a4080</span></div>
+      <div>Nav bottom: <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">1px solid rgba(255,255,255,0.06)</span></div>
+      <div>Section divider (landing): <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">1px — gradient transparent→gold→transparent</span></div>
+      <div>Info callout left accent: <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">2px solid #c8a96e</span></div>
+      <div>Progress bar: <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">1px height / #c8a96e fill / rgba(255,255,255,0.08) track</span></div>
+      <div>Screener panel header accent: <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;">2px solid #1a2744 (top of results card)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ COMPONENT LIBRARY ══ -->
+<div class="section-label">Component Library</div>
+
+<!-- NAV -->
+<div class="row">
+  <div class="comp-card" style="background:#0f1828;">
+    <div class="comp-label" style="color:rgba(239,237,232,0.3);">Nav Bar (dark — landing &amp; quiz header)</div>
+    <div class="prev-nav" style="border-radius:2px;">
+      <div class="prev-logo">Surfaced<span> · Job Search Toolkit</span></div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="prev-step">STEP 3 OF 7</div>
+        <div class="prev-btn-nav">Join Waitlist</div>
+      </div>
+    </div>
+    <div class="prev-progress-track" style="border-radius:0;">
+      <div class="prev-progress" style="width:42%;border-radius:0;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP HEADING + OPTION CARDS -->
+<div class="row">
+  <div class="comp-card">
+    <div class="comp-label">Step Label + Heading</div>
+    <div class="prev-step-label">Step 1 — Welcome</div>
+    <div class="prev-step-heading">Let's build your <em>job search tools.</em></div>
+    <div class="prev-step-sub">Surfaced takes 5 minutes to set up and gives you a personalized toolkit built around your actual background.</div>
+  </div>
+  <div class="comp-card">
+    <div class="comp-label">Option Cards — Default / Selected</div>
+    <div class="prev-card selected">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <div class="prev-card-title">I'm ready — let's go</div>
+          <div class="prev-card-desc">I have my resume and I'm actively applying or preparing to apply.</div>
+        </div>
+        <div style="font-size:9px;font-weight:700;color:#2a4080;font-family:'Raleway',sans-serif;flex-shrink:0;margin-left:8px;">✓</div>
+      </div>
+    </div>
+    <div class="prev-card">
+      <div class="prev-card-title">I'm exploring</div>
+      <div class="prev-card-desc">I'm not actively applying yet but I want to see what this toolkit can do.</div>
+    </div>
+  </div>
+</div>
+
+<!-- INPUTS -->
+<div class="row">
+  <div class="comp-card">
+    <div class="comp-label">Input Fields — Default / Focus</div>
+    <div style="margin-bottom:12px;">
+      <label class="prev-field-label">Target role title(s)</label>
+      <input class="prev-input" placeholder="e.g., Service Designer, Chief of Staff…" style="width:100%;outline:none;">
+    </div>
+    <div>
+      <label class="prev-field-label">Target role title(s) — Focus State</label>
+      <input class="prev-input focus" value="Principal Service Designer" style="width:100%;outline:none;">
+    </div>
+  </div>
+  <div class="comp-card">
+    <div class="comp-label">Industry Multi-Select</div>
+    <div style="border:1px solid #dddad3;border-radius:2px;overflow:hidden;">
+      <div style="background:#efede8;border-bottom:1px solid #dddad3;padding:6px 10px;">
+        <input class="prev-input" placeholder="Search industries…" style="width:100%;background:transparent;border:none;padding:0;font-size:11px;outline:none;">
+      </div>
+      <div class="prev-ind-item sel"><div class="prev-ind-check sel"></div>Healthcare &amp; Hospital Systems</div>
+      <div class="prev-ind-item sel"><div class="prev-ind-check sel"></div>Consulting &amp; Professional Services</div>
+      <div class="prev-ind-item"><div class="prev-ind-check"></div>Banking &amp; Financial Services</div>
+      <div class="prev-ind-item"><div class="prev-ind-check"></div>Software &amp; SaaS</div>
+    </div>
+    <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px;">
+      <div style="background:#1a2744;color:#efede8;font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;padding:3px 8px;border-radius:2px;">Healthcare &amp; Hospital Systems <span style="opacity:.6;margin-left:3px;">×</span></div>
+      <div style="background:#1a2744;color:#efede8;font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;padding:3px 8px;border-radius:2px;">Consulting <span style="opacity:.6;margin-left:3px;">×</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- UPLOAD + INFO CALLOUT -->
+<div class="row">
+  <div class="comp-card">
+    <div class="comp-label">Upload Zone — Default / Hover</div>
+    <div class="prev-upload" style="margin-bottom:8px;">
+      <div class="prev-upload-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg></div>
+      <div class="prev-upload-title">Drop resume files here</div>
+      <div class="prev-upload-sub">PDF, Word (.docx), or plain text · multiple files allowed · up to 5MB each</div>
+    </div>
+    <div class="prev-upload hover">
+      <div class="prev-upload-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg></div>
+      <div class="prev-upload-title">Drop resume files here</div>
+      <div class="prev-upload-sub">Hover / drag-over state</div>
+    </div>
+  </div>
+  <div class="comp-card">
+    <div class="comp-label">Info Callout</div>
+    <div style="border:1px solid #dddad3;border-left:2px solid #c8a96e;border-radius:0 2px 2px 0;padding:12px 14px;background:#fff;font-family:'Raleway',sans-serif;font-size:11px;font-weight:300;color:#888680;line-height:1.65;">
+      <strong style="font-family:'Raleway',sans-serif;font-weight:700;color:#0d0d0b;display:block;margin-bottom:4px;font-size:12px;">Why do you need multiple resume versions?</strong>
+      A single resume cannot win every room. Having format variants — same content, different visual architecture — means you can lead with the right signal for each context.
+    </div>
+  </div>
+</div>
+
+<!-- BIAS QUESTIONS -->
+<div class="row">
+  <div class="comp-card">
+    <div class="comp-label">Bias Proxy Questions</div>
+    <div class="prev-bias-hdr">Age &amp; Career Length Signals</div>
+    <div class="prev-bias-q">
+      <div class="prev-bias-text">Does your resume list jobs that are more than 15 years old?</div>
+      <div class="prev-bias-opts">
+        <div class="prev-bias-opt sel-yes">Yes</div>
+        <div class="prev-bias-opt">No</div>
+        <div class="prev-bias-opt">Not sure</div>
+      </div>
+    </div>
+    <div class="prev-bias-q">
+      <div class="prev-bias-text">Do most of your bullets start with words like "supported," "helped," "assisted"?</div>
+      <div class="prev-bias-opts">
+        <div class="prev-bias-opt">Yes</div>
+        <div class="prev-bias-opt">No</div>
+        <div class="prev-bias-opt">Not sure</div>
+      </div>
+    </div>
+  </div>
+  <div class="comp-card">
+    <div class="comp-label">Bias Flag Chips</div>
+    <div style="margin-bottom:12px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;letter-spacing:.06em;margin-bottom:8px;">HIGH PRIORITY</div>
+      <div class="prev-flag-chip high">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        Jobs &gt;15 years listed
+      </div>
+      <div class="prev-flag-chip high">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        Passive action verbs
+      </div>
+    </div>
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;letter-spacing:.06em;margin-bottom:8px;">MEDIUM PRIORITY</div>
+      <div class="prev-flag-chip">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        Career gap of 6+ months
+      </div>
+      <div class="prev-flag-chip">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        Non-target-list school
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREENER CARDS + STAT NUMBERS -->
+<div class="row">
+  <div class="comp-card">
+    <div class="comp-label">Screener Health Cards — Pass / At Risk / Fail</div>
+    <div class="prev-screener-card">
+      <div class="prev-screener-hdr"><div class="prev-screener-name">HireVue</div><div class="prev-badge-pass">Pass</div></div>
+      <div class="prev-screener-body">HireVue scores behavioral evidence, not titles. Quantified outcomes and specific leadership examples score highest.</div>
+    </div>
+    <div class="prev-screener-card">
+      <div class="prev-screener-hdr"><div class="prev-screener-name">Eightfold</div><div class="prev-badge-risk">At Risk</div></div>
+      <div class="prev-screener-body">Eightfold applies prestige weighting. Front-loading degree name and credentials before institution mitigates this.</div>
+    </div>
+    <div class="prev-screener-card">
+      <div class="prev-screener-hdr"><div class="prev-screener-name">Paradox / Olivia</div><div class="prev-badge-fail">Rejected</div></div>
+      <div class="prev-screener-body">Paradox/Olivia is architected for frontline hiring. Senior titles frequently trigger seniority knockout.</div>
+    </div>
+  </div>
+  <div class="comp-card">
+    <div class="comp-label">Result Stats (Cormorant numerals / gold)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+      <div style="background:#efede8;border:1px solid #dddad3;border-radius:2px;padding:12px;text-align:center;">
+        <div class="prev-rs-num">4</div>
+        <div class="prev-rs-label">Bias Flags</div>
+      </div>
+      <div style="background:#efede8;border:1px solid #dddad3;border-radius:2px;padding:12px;text-align:center;">
+        <div class="prev-rs-num">3</div>
+        <div class="prev-rs-label">Industries</div>
+      </div>
+      <div style="background:#efede8;border:1px solid #dddad3;border-radius:2px;padding:12px;text-align:center;">
+        <div class="prev-rs-num" style="font-size:20px;">Classic</div>
+        <div class="prev-rs-label">Format Selected</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BUTTONS -->
+<div class="row">
+  <div class="comp-card">
+    <div class="comp-label">Button States</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px;">
+      <div class="prev-btn-primary">Continue</div>
+      <div class="prev-btn-primary hover">Continue — hover</div>
+      <div class="prev-btn-secondary">Back</div>
+      <div style="font-family:'Raleway',sans-serif;font-size:10px;font-weight:300;color:#888680;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Skip for now</div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:#0f1828;padding:12px;border-radius:2px;">
+      <div class="prev-btn-nav">Join Waitlist</div>
+      <div class="prev-btn-nav hover">Join Waitlist — hover</div>
+    </div>
+  </div>
+</div>
+
+<!-- LANDING COMPONENTS -->
+<div class="row">
+  <div class="comp-card" style="background:#0f1828;flex:2;">
+    <div class="comp-label" style="color:rgba(239,237,232,0.3);">Landing — Hero</div>
+    <div class="prev-hero-bg" style="padding:0;">
+      <div class="prev-eyebrow">Your skills, surfaced.</div>
+      <div class="prev-headline">The rules changed.<br><em>AI is screening you out</em><br>before employers know you exist.</div>
+      <div class="prev-landing-sub">Most tools help you write a better resume. <strong style="color:#efede8;font-weight:500;">Surfaced ensures you clear the first hurdle</strong> — the AI screener that decides whether a human ever sees your name.</div>
+      <div class="prev-email-bar">
+        <div class="prev-email-input">Your work email</div>
+        <div class="prev-email-btn">Get Early Access</div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:rgba(239,237,232,0.25);letter-spacing:.06em;margin-top:8px;">No spam. Early access only. Unsubscribe anytime.</div>
+    </div>
+  </div>
+  <div class="comp-card" style="background:#0f1828;">
+    <div class="comp-label" style="color:rgba(239,237,232,0.3);">Landing — Feature Card</div>
+    <div class="prev-feat-card">
+      <div class="prev-feat-num">01</div>
+      <div class="prev-feat-title">Screener Health</div>
+      <div class="prev-feat-desc">See your pass/fail likelihood across <strong style="color:rgba(239,237,232,0.8);font-weight:500;">9 AI screening platforms</strong> — Workday, Eightfold, Greenhouse, HireVue, Phenom, and more.</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ DO / DON'T ══ -->
+<div class="section-label">Rules — Do / Don't</div>
+<div class="row">
+  <div class="rule-card">
+    <div class="rule-head-yes">✓ Typography</div>
+    <div class="rule-body">
+      Cormorant Garamond for all display headings and large numerals<br>
+      Raleway for all UI text, buttons, labels, descriptions<br>
+      IBM Plex Mono for eyebrows, field labels, step counters, monospaced data<br>
+      Use weight to create hierarchy within Raleway (300 body / 700 labels)
+    </div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-head-no">✕ Typography</div>
+    <div class="rule-body">
+      Never use serif for UI labels, buttons, or field text<br>
+      Never use Helvetica Neue, Oswald, IBM Plex Sans, or other fonts not in the stack<br>
+      Never use Cormorant in all-caps<br>
+      Never use bold weight (600+) in Cormorant — use 300 or 400 only<br>
+      Never use emoji or multicolor icons
+    </div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-head-yes">✓ Color</div>
+    <div class="rule-body">
+      Gold (#c8a96e) on dark backgrounds only — eyebrows, CTAs, progress, callout accents<br>
+      Accent blue (#2a4080) for interactive states on light backgrounds<br>
+      Navy (#1a2744) for primary buttons on light backgrounds<br>
+      Off-white (#efede8) as quiz surface / card hover — never pure white as page bg
+    </div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-head-no">✕ Color</div>
+    <div class="rule-body">
+      Never use gold on light backgrounds (insufficient contrast)<br>
+      Never use teal, purple, or any color outside the defined palette<br>
+      Never use gold as body text color<br>
+      Never use pure black (#000000) as background — use #0f1828<br>
+      Never introduce new semantic colors without updating this guide
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="rule-card">
+    <div class="rule-head-yes">✓ Components</div>
+    <div class="rule-body">
+      Monochromatic SVG icons only — single stroke color, 1.25–1.5px stroke-width<br>
+      Border radius: 2px for interactive elements, 4–6px for containers<br>
+      Selected state: 2px solid #2a4080 (light bg) or 1px solid #c8a96e (dark bg)<br>
+      Progress bar: 1px height, gold fill, rgba(255,255,255,0.08) track
+    </div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-head-no">✕ Components</div>
+    <div class="rule-body">
+      Never use multicolor, filled, or brand-color icons<br>
+      Never use drop shadows on cards in light surface contexts<br>
+      Never use gradients on buttons — solid fills only<br>
+      Never use more than 2px border on any element<br>
+      Never mix border-radius values within the same component group
+    </div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-head-yes">✓ Copy Tone</div>
+    <div class="rule-body">
+      Grounded and direct — respects the reader's intelligence<br>
+      Names the real problem (AI bias, screener gatekeeping) without hedging<br>
+      Strong nouns and verbs — "surfaces," "clears," "flags," "recognizes"<br>
+      Italic Cormorant used for emotional or rhetorical emphasis in headlines only
+    </div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-head-no">✕ Copy Tone</div>
+    <div class="rule-body">
+      No hype or superlatives ("revolutionary," "game-changing," "powerful")<br>
+      No vague aspirational framing ("unlock your potential")<br>
+      No passive voice in CTAs<br>
+      No em-dashes in UI body copy — use commas or line breaks instead<br>
+      Never refer to users as "job seekers" in hero/CTA copy — too generic
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ TOKEN SPEC ══ -->
+<div class="section-label">Full Token Reference</div>
+<div class="spec-block">
+  <div class="spec-label">Design Tokens — CSS Variables</div>
+  <pre>
+──────────────────────────────────────────
+COLOR TOKENS
+──────────────────────────────────────────
+--navy-deep:   #0f1828   /* page bg (dark surfaces) */
+--navy:        #1a2744   /* buttons / header bg */
+--accent:      #2a4080   /* interactive / focus / selected */
+--accent-lt:   #3a54a8   /* gradient endpoint */
+--gold:        #c8a96e   /* CTA / eyebrow / progress / callout */
+--gold-lt:     #e8d4a8   /* gold hover */
+--black:       #0d0d0b   /* heading text */
+--ink:         #1e1e1c   /* body text */
+--mid:         #888680   /* subtext / captions */
+--rule:        #dddad3   /* borders / dividers */
+--off-white:   #efede8   /* quiz surface / hover bg */
+--white:       #ffffff   /* card / form surface */
+
+/* Semantic */
+--emerald:           #1e5c2a
+--emerald-bg:        rgba(30,92,42,0.07)
+--emerald-border:    rgba(30,92,42,0.25)
+--amber:             #7a5a00
+--amber-bg:          rgba(122,90,0,0.07)
+--amber-border:      rgba(122,90,0,0.25)
+--red:               #8b2020
+--red-bg:            rgba(139,32,32,0.07)
+--red-border:        rgba(139,32,32,0.2)
+
+──────────────────────────────────────────
+TYPOGRAPHY TOKENS
+──────────────────────────────────────────
+Display heading:     'Cormorant Garamond', serif / 300 / −0.01em
+Display heading em:  'Cormorant Garamond', serif / 300 italic / gold or accent
+UI body:             'Raleway', sans-serif / 300
+UI label:            'Raleway', sans-serif / 700 / uppercase / 0.06–0.08em
+Button:              'Raleway', sans-serif / 700 / uppercase / 0.18em
+Eyebrow/mono label:  'IBM Plex Mono', monospace / 400 / uppercase / 0.18–0.22em
+Step counter:        'IBM Plex Mono', monospace / 400 / 0.18em
+Stat numeral:        'Cormorant Garamond', serif / 300 / gold
+
+──────────────────────────────────────────
+SPACING TOKENS
+──────────────────────────────────────────
+xs:    4px    /* icon nudge */
+sm:    8px    /* chip padding, tight gap */
+md:    12px   /* card padding tight */
+base:  16px   /* card padding standard */
+lg:    24px   /* section inner padding */
+xl:    32px   /* section gutter */
+2xl:   48px   /* section top/bottom (quiz) */
+3xl:   96px   /* section padding (landing) */
+
+──────────────────────────────────────────
+BORDER RADIUS TOKENS
+──────────────────────────────────────────
+r-0:   0px    /* forms / progress / email capture */
+r-1:   2px    /* buttons / cards / inputs / badges */
+r-2:   4px    /* filter panel / table wraps */
+r-3:   6px    /* landing feature grid / preview mockup */
+
+──────────────────────────────────────────
+ICON RULES
+──────────────────────────────────────────
+• Monochromatic SVG only — single stroke color
+• Stroke width: 1.25px (landing) / 1.5px (quiz / screener)
+• Color: --accent on light bg / --gold on dark bg / --emerald/--amber/--red for semantic
+• Size: 16px (inline UI) / 24px (upload / screener) / 32–36px (landing feature cards)
+• Never use filled icons, multicolor icons, or emoji as UI elements
+
+──────────────────────────────────────────
+SURFACE CONTEXTS
+──────────────────────────────────────────
+Dark surface (landing / nav):
+  bg:         #0f1828
+  text:       #efede8
+  subtext:    rgba(239,237,232,0.55)
+  border:     rgba(255,255,255,0.06)
+  eyebrow:    #c8a96e
+  heading em: #c8a96e
+
+Light surface (quiz / screener panel):
+  bg:         #efede8
+  card:       #ffffff
+  text:       #0d0d0b (headings) / #1e1e1c (body)
+  subtext:    #888680
+  border:     #dddad3
+  eyebrow:    #c8a96e
+  accent:     #2a4080
+
+──────────────────────────────────────────
+COMPONENT STATES
+──────────────────────────────────────────
+Default:   1px solid #dddad3
+Hover:     border-color → #2a4080 (light) / #c8a96e (dark)
+Selected:  2px solid #2a4080 + background #efede8
+Focus:     border-color: #2a4080, border-width: 2px
+Disabled:  opacity: 0.45
+Loading:   spinner — 2px border, top-color: #c8a96e, 0.8s linear infinite
+
+──────────────────────────────────────────
+FILES IN SYSTEM
+──────────────────────────────────────────
+surfaced-landing.html       → Marketing / acquisition page
+applykit-onboarding.html    → Onboarding quiz (7 steps)
+applykit-screener.html      → Screener health panel
+Job_Search_Toolkit_v8.html  → Core toolkit (v8+)
+  </pre>
+</div>
+
+</body>
+</html>
