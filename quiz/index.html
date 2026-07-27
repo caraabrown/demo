@@ -3,37 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ApplyKit — Set Up Your Profile</title>
+<title>Surfaced — Job Search Toolkit · Setup</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Raleway:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  /* ── Style Guide Palette ── */
+  /* ── Design System Palette ── */
   --black:   #0d0d0b;
   --ink:     #1e1e1c;
   --navy:    #1a2744;
+  --navy-deep:#0f1828;
   --accent:  #2a4080;
   --mid:     #888680;
   --rule:    #dddad3;
   --offwhite:#efede8;
+  --cream:   #f7f5f1;
   --white:   #ffffff;
+  --gold:    #c8a96e;
+  --gold-lt: #e8d4a8;
 
-  /* ── UI surface tokens mapped from guide palette ── */
-  --bg:      #1a2744;        /* navy as page bg */
-  --surface: #ffffff;        /* white card surface */
-  --surface2:#efede8;        /* off-white raised surface */
-  --surface3:#dddad3;        /* rule-tone deep surface */
-  --border:  #dddad3;        /* guide rule color */
-  --border2: #c8c5be;        /* slightly deeper border */
-  --text:    #1e1e1c;        /* ink */
-  --muted:   #888680;        /* mid gray */
-  --dim:     #b8b5ae;        /* light caption */
-
-  /* ── Semantic / state colors mapped from guide ── */
-  --teal:        #2a4080;           /* accent = primary interactive */
+  /* ── Semantic tokens ── */
+  --bg:          var(--navy-deep);
+  --surface:     var(--white);
+  --surface2:    var(--offwhite);
+  --surface3:    var(--rule);
+  --border:      var(--rule);
+  --border2:     #c8c5be;
+  --text:        var(--ink);
+  --muted:       var(--mid);
+  --dim:         #b8b5ae;
+  --teal:        var(--accent);
   --teal-bg:     rgba(42,64,128,0.07);
   --teal-border: rgba(42,64,128,0.3);
-  --violet:      #1a2744;           /* navy = secondary */
+  --violet:      var(--navy);
   --violet-bg:   rgba(26,39,68,0.06);
   --violet-border:rgba(26,39,68,0.25);
   --amber:       #7a5a00;
@@ -50,8 +52,9 @@
 
 html{font-size:16px;-webkit-font-smoothing:antialiased}
 body{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  background:var(--navy);
+  font-family:'Raleway',sans-serif;
+  font-weight:300;
+  background:var(--navy-deep);
   color:var(--ink);
   min-height:100vh;
   display:flex;
@@ -62,29 +65,31 @@ body{
 .header{
   position:relative;
   z-index:10;
-  padding:1.2rem 2.5rem;
+  padding:1.1rem 2.5rem;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  border-bottom:2px solid var(--accent);
-  background:var(--navy);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:rgba(15,24,40,0.92);
+  backdrop-filter:blur(12px);
 }
 .logo{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:1.1rem;
+  font-family:'Raleway',sans-serif;
+  font-size:1rem;
   font-weight:700;
-  letter-spacing:-0.02em;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
   color:var(--offwhite);
 }
 .logo span{
   font-weight:300;
-  color:var(--rule);
+  color:var(--gold);
 }
 .header-step{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.6rem;
-  font-weight:600;
-  color:var(--mid);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.58rem;
+  font-weight:400;
+  color:rgba(239,237,232,0.35);
   letter-spacing:0.18em;
   text-transform:uppercase;
 }
@@ -93,12 +98,12 @@ body{
 .progress-wrap{
   position:relative;
   z-index:10;
-  height:2px;
-  background:var(--rule);
+  height:1px;
+  background:rgba(255,255,255,0.08);
 }
 .progress-fill{
   height:100%;
-  background:var(--accent);
+  background:var(--gold);
   transition:width 0.5s cubic-bezier(0.4,0,0.2,1);
   width:14.28%;
 }
@@ -111,8 +116,10 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:2.5rem 1.5rem 4rem;
+  padding:3rem 1.5rem 5rem;
   background:var(--offwhite);
+  background-image:
+    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(42,64,128,0.12) 0%, transparent 70%);
 }
 
 /* ── STEP CONTAINER ── */
@@ -130,22 +137,23 @@ body{
 
 /* ── STEP LABEL ── */
 .step-label{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.6rem;
-  font-weight:600;
-  letter-spacing:0.18em;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.58rem;
+  font-weight:400;
+  letter-spacing:0.22em;
   text-transform:uppercase;
-  color:var(--accent);
+  color:var(--gold);
   margin-bottom:0.6rem;
+  opacity:0.8;
 }
 
 /* ── STEP HEADING ── */
 .step-heading{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:1.75rem;
-  font-weight:700;
-  letter-spacing:-0.02em;
-  line-height:1.2;
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.4rem;
+  font-weight:300;
+  letter-spacing:-0.01em;
+  line-height:1.15;
   margin-bottom:0.5rem;
   color:var(--black);
 }
@@ -157,11 +165,11 @@ body{
 
 /* ── STEP SUBTEXT ── */
 .step-sub{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.875rem;
   font-weight:300;
   color:var(--mid);
-  line-height:1.6;
+  line-height:1.7;
   margin-bottom:1.75rem;
   max-width:560px;
 }
@@ -204,7 +212,7 @@ body{
   font-size:0.65rem;
   color:var(--accent);
   font-weight:700;
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
 }
 .opt-card input[type=checkbox],
 .opt-card input[type=radio]{
@@ -213,16 +221,16 @@ body{
   pointer-events:none;
 }
 .opt-title{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.82rem;
-  font-weight:600;
-  letter-spacing:0.04em;
+  font-family:'Raleway',sans-serif;
+  font-size:0.78rem;
+  font-weight:700;
+  letter-spacing:0.06em;
   text-transform:uppercase;
   color:var(--black);
   margin-bottom:0.3rem;
 }
 .opt-desc{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.75rem;
   font-weight:300;
   color:var(--mid);
@@ -309,16 +317,16 @@ body{
   background:var(--white);
 }
 .format-label .fl-title{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.72rem;
+  font-family:'Raleway',sans-serif;
+  font-size:0.68rem;
   font-weight:700;
-  letter-spacing:0.06em;
+  letter-spacing:0.08em;
   text-transform:uppercase;
   color:var(--black);
   margin-bottom:0.15rem;
 }
 .format-label .fl-desc{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.67rem;
   font-weight:300;
   color:var(--mid);
@@ -329,19 +337,19 @@ body{
 /* ── RESUME MULTIPLE VALUE BLURB ── */
 .info-callout{
   border:1px solid var(--rule);
-  border-left:2px solid var(--accent);
+  border-left:2px solid var(--gold);
   background:var(--white);
   border-radius:0 4px 4px 0;
   padding:1rem 1.25rem;
   margin-bottom:1.75rem;
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.8rem;
   font-weight:300;
-  line-height:1.65;
+  line-height:1.7;
   color:var(--mid);
 }
 .info-callout strong{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   color:var(--black);
   font-weight:700;
   display:block;
@@ -375,16 +383,16 @@ body{
 }
 .upload-icon svg{width:32px;height:32px;stroke:var(--accent);fill:none;stroke-width:1.5}
 .upload-title{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.82rem;
+  font-family:'Raleway',sans-serif;
+  font-size:0.78rem;
   font-weight:700;
-  letter-spacing:0.06em;
+  letter-spacing:0.08em;
   text-transform:uppercase;
   color:var(--black);
   margin-bottom:0.3rem;
 }
 .upload-sub{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.72rem;
   font-weight:300;
   color:var(--mid);
@@ -393,7 +401,7 @@ body{
   margin-top:0.75rem;
   font-size:0.75rem;
   font-weight:600;
-  color:var(--accent);
+  color:var(--gold);
   display:none;
 }
 .upload-status.visible{display:block}
@@ -427,20 +435,20 @@ body{
   font-size:0.65rem;
   color:var(--navy);
   font-weight:700;
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
 }
 .ws-cat-card input{position:absolute;opacity:0;pointer-events:none}
 .ws-cat-title{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.78rem;
+  font-family:'Raleway',sans-serif;
+  font-size:0.75rem;
   font-weight:700;
-  letter-spacing:0.06em;
+  letter-spacing:0.08em;
   text-transform:uppercase;
   color:var(--black);
   margin-bottom:0.25rem;
 }
 .ws-cat-desc{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.72rem;
   font-weight:300;
   color:var(--mid);
@@ -465,20 +473,20 @@ body{
 .ws-slot-icon svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.5}
 .ws-slot-label{flex:1}
 .ws-slot-name{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.75rem;
   font-weight:600;
   color:var(--black);
   margin-bottom:0.1rem;
 }
 .ws-slot-hint{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.67rem;
   font-weight:300;
   color:var(--mid);
 }
 .ws-slot-status{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.7rem;
   font-weight:600;
   color:var(--accent);
@@ -488,10 +496,10 @@ body{
 .field-wrap{margin-bottom:1.1rem}
 label.field-label{
   display:block;
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.6rem;
-  font-weight:700;
-  letter-spacing:0.14em;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.58rem;
+  font-weight:400;
+  letter-spacing:0.18em;
   text-transform:uppercase;
   color:var(--mid);
   margin-bottom:0.4rem;
@@ -500,9 +508,9 @@ input[type=text], select, textarea{
   width:100%;
   background:var(--white);
   border:1px solid var(--rule);
-  border-radius:4px;
+  border-radius:2px;
   color:var(--ink);
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.875rem;
   font-weight:300;
   padding:0.65rem 0.9rem;
@@ -517,15 +525,16 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
 /* ── BIAS SIGNALS ── */
 .bias-section{margin-bottom:1.75rem}
 .bias-heading{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.6rem;
-  font-weight:700;
-  letter-spacing:0.14em;
-  color:var(--navy);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.58rem;
+  font-weight:400;
+  letter-spacing:0.18em;
+  color:var(--gold);
   text-transform:uppercase;
   margin-bottom:0.75rem;
   padding-bottom:0.35rem;
-  border-bottom:1px solid var(--rule);
+  border-bottom:1px solid rgba(200,169,110,0.2);
+  opacity:0.9;
 }
 .bias-q{
   border:1px solid var(--rule);
@@ -536,7 +545,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
 }
 .bias-q-text{
   padding:0.8rem 1rem;
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.82rem;
   font-weight:300;
   line-height:1.55;
@@ -550,10 +559,10 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   flex:1;
   padding:0.5rem;
   text-align:center;
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.68rem;
+  font-family:'Raleway',sans-serif;
+  font-size:0.65rem;
   font-weight:700;
-  letter-spacing:0.08em;
+  letter-spacing:0.1em;
   text-transform:uppercase;
   color:var(--mid);
   cursor:pointer;
@@ -598,16 +607,16 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   background:var(--offwhite);
 }
 .screener-name{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.78rem;
+  font-family:'Raleway',sans-serif;
+  font-size:0.72rem;
   font-weight:700;
-  letter-spacing:0.06em;
+  letter-spacing:0.08em;
   text-transform:uppercase;
   color:var(--black);
 }
 .screener-badge{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.6rem;
+  font-family:'Raleway',sans-serif;
+  font-size:0.58rem;
   font-weight:700;
   padding:0.2rem 0.65rem;
   border-radius:2px;
@@ -619,7 +628,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
 .badge-fail{background:var(--red-bg);color:var(--red);border:1px solid rgba(139,32,32,0.2)}
 .screener-card-body{
   padding:0.7rem 1rem;
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.78rem;
   font-weight:300;
   color:var(--mid);
@@ -637,42 +646,42 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   margin-bottom:1.75rem;
 }
 .rs-title{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:1.25rem;
-  font-weight:700;
-  letter-spacing:-0.02em;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;
+  font-weight:300;
+  letter-spacing:-0.01em;
   color:var(--black);
   margin-bottom:0.35rem;
 }
 .rs-sub{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.8rem;
   font-weight:300;
   color:var(--mid);
   margin-bottom:1.25rem;
-  line-height:1.6;
+  line-height:1.65;
 }
 .rs-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;margin-bottom:1.25rem}
 .rs-stat{
   background:var(--offwhite);
   border:1px solid var(--rule);
-  border-radius:4px;
+  border-radius:2px;
   padding:0.9rem;
   text-align:center;
 }
 .rs-stat-num{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:1.6rem;
-  font-weight:700;
-  color:var(--accent);
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;
+  font-weight:300;
+  color:var(--gold);
   line-height:1;
   margin-bottom:0.3rem;
 }
 .rs-stat-label{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.62rem;
-  font-weight:600;
-  letter-spacing:0.1em;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.58rem;
+  font-weight:400;
+  letter-spacing:0.14em;
   text-transform:uppercase;
   color:var(--mid);
 }
@@ -680,7 +689,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
 .flag-list{display:flex;flex-direction:column;gap:0.5rem}
 .flag-item{
   display:flex;align-items:flex-start;gap:0.75rem;
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.78rem;
   font-weight:300;
   color:var(--ink);
@@ -701,10 +710,10 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   margin-top:1.75rem;
 }
 .btn{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.7rem;
+  font-family:'Raleway',sans-serif;
+  font-size:0.62rem;
   font-weight:700;
-  letter-spacing:0.14em;
+  letter-spacing:0.18em;
   text-transform:uppercase;
   padding:0.75rem 1.75rem;
   border-radius:2px;
@@ -717,7 +726,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   background:var(--navy);
   color:var(--offwhite);
 }
-.btn-primary:hover{background:var(--accent)}
+.btn-primary:hover{background:var(--gold);color:var(--navy-deep)}
 .btn-secondary{
   background:transparent;
   color:var(--mid);
@@ -727,20 +736,20 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
 .btn-launch{
   background:var(--navy);
   color:var(--offwhite);
-  font-size:0.75rem;
+  font-size:0.7rem;
   padding:0.9rem 2.25rem;
   width:100%;
   max-width:320px;
-  letter-spacing:0.14em;
+  letter-spacing:0.18em;
 }
-.btn-launch:hover{background:var(--accent)}
+.btn-launch:hover{background:var(--gold);color:var(--navy-deep)}
 .btn-skip{
   background:none;border:none;
-  color:var(--mid);font-size:0.7rem;
+  color:var(--mid);font-size:0.68rem;
   font-weight:300;
   cursor:pointer;text-decoration:underline;
   text-underline-offset:3px;
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   transition:color 0.15s;
 }
 .btn-skip:hover{color:var(--ink)}
@@ -765,9 +774,9 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-text{
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  font-size:0.68rem;
-  font-weight:600;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0.62rem;
+  font-weight:400;
   letter-spacing:0.14em;
   text-transform:uppercase;
   color:var(--mid);
@@ -800,7 +809,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
 .resume-file-icon svg{width:15px;height:15px;stroke:var(--accent);fill:none;stroke-width:1.5;flex-shrink:0}
 .resume-file-name{
   flex:1;
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.78rem;
   font-weight:400;
   color:var(--ink);
@@ -809,7 +818,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   text-overflow:ellipsis;
 }
 .resume-file-size{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.67rem;
   font-weight:300;
   color:var(--mid);
@@ -838,7 +847,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   border-bottom:1px solid var(--rule);
   padding:0.6rem 0.9rem;
   font-size:0.8rem;
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   color:var(--ink);
   outline:none;
   background:var(--offwhite);
@@ -882,7 +891,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   transform:rotate(-45deg) translateY(-1px);
 }
 .ind-name{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.8rem;
   font-weight:400;
   color:var(--ink);
@@ -893,7 +902,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   background:var(--offwhite);
 }
 .ind-selected-label{
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.58rem;
   font-weight:700;
   letter-spacing:0.14em;
@@ -906,7 +915,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   display:flex;align-items:center;gap:0.35rem;
   background:var(--navy);
   color:var(--offwhite);
-  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-family:'Raleway',sans-serif;
   font-size:0.68rem;
   font-weight:600;
   letter-spacing:0.04em;
@@ -937,7 +946,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
 <body>
 
 <header class="header">
-  <div class="logo">Apply<span>Kit</span></div>
+  <div class="logo">Surfaced<span> · Job Search Toolkit</span></div>
   <div class="header-step" id="header-step">STEP 1 OF 7</div>
 </header>
 <div class="progress-wrap">
@@ -951,9 +960,9 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   ══════════════════════════════════════════ -->
   <div class="step active" id="step-1">
     <div class="step-label">Welcome</div>
-    <div class="step-heading">Let's build your <em>job search engine.</em></div>
+    <div class="step-heading">Let's build your <em>job search tools.</em></div>
     <div class="step-sub">
-      ApplyKit takes 5 minutes to set up and gives you a personalized toolkit — tailored resume formats, screener-ready analysis, work sample strategy, and bias-proofing flags — built around your actual background.<br><br>
+      Surfaced takes 5 minutes to set up and gives you a personalized toolkit — tailored resume formats, screener-ready analysis, work sample strategy, and bias-proofing flags — built around your actual background.<br><br>
       <strong>What you'll need:</strong> your resume (PDF or Word), 5 minutes, and a clear sense of where you want to go next.
     </div>
 
@@ -981,7 +990,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   <div class="step" id="step-2">
     <div class="step-label">Step 2 — Goals</div>
     <div class="step-heading">Where do you want to <em>work?</em></div>
-    <div class="step-sub">Select all industries you're targeting. ApplyKit uses this to tailor keyword banks, screener logic, and resume framing to the sectors most likely to hire for your role.</div>
+    <div class="step-sub">Select all industries you're targeting. Surfaced uses this to tailor keyword banks, screener logic, and resume framing to the sectors most likely to hire for your role.</div>
 
     <div class="field-wrap">
       <label class="field-label">Target industries — select all that apply</label>
@@ -1041,7 +1050,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
   <div class="step" id="step-3">
     <div class="step-label">Step 3 — Resume</div>
     <div class="step-heading">Upload your <em>resume(s).</em></div>
-    <div class="step-sub">Upload one or more versions. ApplyKit will analyze each against AI screeners — HireVue, Eightfold, Phenom, and Paradox Olivia — and flag what to fix. You'll label and assign formats inside the toolkit.</div>
+    <div class="step-sub">Upload one or more versions. Surfaced will analyze each against AI screeners — HireVue, Eightfold, Phenom, and Paradox Olivia — and flag what to fix. You'll label and assign formats inside the toolkit.</div>
 
     <div class="upload-zone" id="resume-upload-zone">
       <input type="file" id="resume-file" accept=".pdf,.doc,.docx,.txt" multiple onchange="handleResumeUpload(this)">
@@ -1230,7 +1239,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
 
     <div class="info-callout" style="border-left-color:var(--navy)">
       <strong>Why work samples matter at this stage</strong>
-      Screeners pass your resume. Hiring managers decide based on proof. A curated work sample package — matched to the role category — moves you from "qualified" to "I need to meet this person." Upload what you have; ApplyKit will tell you what's missing for each track you're targeting.
+      Screeners pass your resume. Hiring managers decide based on proof. A curated work sample package — matched to the role category — moves you from "qualified" to "I need to meet this person." Upload what you have; Surfaced will tell you what's missing for each track you're targeting.
     </div>
 
     <div class="step-sub" style="margin-bottom:1rem">Select the categories that match your background, then upload samples in each.</div>
@@ -1279,7 +1288,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
     <div class="step-label">Step 6 — Screener Bias Check</div>
     <div class="step-heading">Let's <em>bias-proof</em> your resume.</div>
     <div class="step-sub">
-      AI screeners carry documented biases that disadvantage candidates based on career length, industry trajectory, and life circumstances — not qualifications. These questions help ApplyKit flag what to remove or reframe before your resume enters any automated system. <strong>No identity data is collected.</strong>
+      AI screeners carry documented biases that disadvantage candidates based on career length, industry trajectory, and life circumstances — not qualifications. These questions help Surfaced flag what to remove or reframe before your resume enters any automated system. <strong>No identity data is collected.</strong>
     </div>
 
     <!-- AGE SIGNALS -->
@@ -1443,9 +1452,9 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
     <!-- CTA -->
     <div id="cta-wrap" style="display:none;text-align:center;padding-top:1rem">
       <div style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">
-        Your profile is saved. Open ApplyKit to start tailoring your resume per application, run ATS checks, generate cover letters, and track your pipeline.
+        Your profile is saved. Open Surfaced to start tailoring your resume per application, run ATS checks, generate cover letters, and track your pipeline.
       </div>
-      <button class="btn btn-launch" onclick="launchToolkit()">Open ApplyKit →</button>
+      <button class="btn btn-launch" onclick="launchToolkit()">Open Surfaced →</button>
     </div>
   </div>
 
