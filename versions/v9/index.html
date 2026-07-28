@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3876,7 +3877,7 @@ var qaHistory=[];
 var leHistory=[];
 var whySysPrompt='';
 var qaSysPrompt='';
-var leSysPrompt=buildLeSysPrompt();
+var leSysPrompt='';
 async function sendVariantChat(prefix,history,sysPrompt){
   var input=document.getElementById(prefix+'-chat-input');
   var thread=document.getElementById(prefix+'-chat-thread');
@@ -5952,6 +5953,8 @@ Output nothing else — just the EDIT_SUMMARY line followed by the edit blocks.$
 
 document.getElementById('le-chat-send').addEventListener('click', function(){ sendLeChat(); });
 document.getElementById('le-chat-input').addEventListener('keydown', function(e){ if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)) sendLeChat(); });
+
+leSysPrompt = buildLeSysPrompt();
 
 var recheckChatHistory = [];
 var recheckChatSysPrompt = buildRecheckSysPrompt();
